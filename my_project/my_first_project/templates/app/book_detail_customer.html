@@ -1,0 +1,15 @@
+{% extends "app/base.html" %}
+
+
+{% block content %}
+
+<div class="container">
+        <h1>{{ book.title }}</h1>
+        <h2>By {{ book.author }}</h2>
+        <p><strong>Description:</strong> {{ book.description }}</p>
+        <p><strong>Publication Date:</strong> {{ book.publication_date }}</p>
+        <a href="{% url 'my_books' %}" class="btn btn-secondary">Back to Market</a>
+        <a href="{% url 'make_order' book.uuid %}" class="btn btn-primary">Buy Now</a>
+        
+</div>
+    {% endblock %}

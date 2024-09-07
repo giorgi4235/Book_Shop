@@ -1,0 +1,81 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <link rel="stylesheet" href="">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        .review-table th, .review-table td {
+            border: 1px solid #ccc;
+        }
+    </style> 
+</head>  
+<body>
+    <h1>Book List</h1>
+    {% for book in books %}
+        <h2>{{ book.title }} by {{ book.author }}</h2>
+        <table>
+            <tr>
+                <th>Title</th>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ book.author }}</td>
+            </tr>
+            <tr>
+                <th>Publication Date</th>
+                <!-- <td>{{ book.publication_date }}</td> -->
+                <td>{{ book.publication_date }}</td>
+            </tr>
+            <tr>
+                <th>ISBN</th>
+                <td>{{ book.isbn }}</td>
+            </tr>
+            <tr>
+                <th>Pages</th>
+                <td>{{ book.pages }}</td>
+            </tr>
+        </table>
+
+        <h3>Reviews</h3>
+        {% if book.reviews.all %}
+            <table class="review-table">
+                <tr>
+                    <th>Reviewer</th>
+                    <th>Rating</th>
+                    <th>Review</th>
+                    <th>Date</th>
+                </tr>
+                {% for review in book.reviews.all %}
+                    <tr>
+                        <td>{{ review.reviewer_name }}</td>
+                        <!-- <td>{{ review.rating }}</td> -->
+                        <td>{{ review.rating|star_rating }}</td>
+                        <td>{{ review.review_text }}</td>
+                        <td>{{ review.review_date }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No reviews yet.</p>
+        {% endif %}
+        
+    {% endfor %}
+</body>
+</html>
